@@ -188,6 +188,13 @@ void AP_Mount::init()
             serial_instance++;
             break;
 #endif // HAL_MOUNT_XFROBOT_ENABLED
+
+#if HAL_MOUNT_GIMBAL_MANAGER_MAVLINK_ENABLED
+        case Type::MAVLinkMountGimbalManager:
+            _backends[instance] = NEW_NOTHROW AP_Mount_MAVLink_Gimbal_Manager(*this, _params[instance], instance, serial_instance);
+            _num_instance++;
+            break;
+#endif // HAL_MOUNT_GIMBAL_MANAGER_MAVLINK_ENABLED
         }
 
         // init new instance
